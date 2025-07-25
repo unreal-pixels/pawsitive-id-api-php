@@ -41,3 +41,9 @@ function query_database($query, $return_last_id = false)
 
   return $return_last_id ? $last_id : $result;
 }
+
+function get_query_string($query_string) {
+  $parts = parse_url($_SERVER['REQUEST_URI']);
+  parse_str($parts['query'], $query);
+  return $query[$query_string];
+}
