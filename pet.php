@@ -23,7 +23,7 @@ function get_single_item($id)
 
       $row["reunited"] = $row["reunited"] === "1" ? true : false;
       $row["chats"] = $chats;
-      $row["images"] = explode("~", $row["image_data"]);
+      $row["images"] = empty($row["image_data"]) ? array() : explode("~", $row["image_data"]);
       unset($row["image_data"]);
 
       array_push($final_results, $row);
@@ -60,7 +60,7 @@ if ($method === 'GET') {
 
       $row["reunited"] = $row["reunited"] === "1" ? true : false;
       $row["chats"] = $chats;
-      $row["images"] = explode("~", $row["image_data"]);
+      $row["images"] = empty($row["image_data"]) ? array() : explode("~", $row["image_data"]);
       unset($row["image_data"]);
 
       array_push($final_results, $row);
