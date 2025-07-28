@@ -43,7 +43,19 @@ if ($method === 'GET') {
     return;
   }
 
-  $db_results = query_database("SELECT * FROM Pet ORDER BY created_at DESC");
+  $show_reunited = !!get_query_string("reunited");
+  $query_string = "SELECT * FROM Pet";
+
+  if (!$show_reunited) {
+    $query_string = $query_string . " WHERE reunited = false";
+  } else {
+    $query_string = $query_string . " WHERE reunited = true";
+  }
+
+  $query_string = $query_string . " ORDER BY created_at DESC";
+
+  $db_results = query_database($query_string);
+
   $final_results = array();
 
   if (mysqli_num_rows($db_results) > 0) {
