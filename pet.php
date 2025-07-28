@@ -16,8 +16,8 @@ function get_single_item($id)
       $chats = array();
 
       if (mysqli_num_rows($chat_db_results) > 0) {
-        while ($row = mysqli_fetch_assoc($chat_db_results)) {
-          array_push($chats, $row);
+        while ($chat_row = mysqli_fetch_assoc($chat_db_results)) {
+          array_push($chats, $chat_row);
         }
       }
 
@@ -49,12 +49,12 @@ if ($method === 'GET') {
   if (mysqli_num_rows($db_results) > 0) {
     while ($row = mysqli_fetch_assoc($db_results)) {
       $id = $row["id"];
-      $chat_db_results = query_database("SELECT * FROM Chat WHERE  post_id = $id ORDER BY created_at DESC");
+      $chat_db_results = query_database("SELECT * FROM Chat WHERE post_id = $id ORDER BY created_at DESC");
       $chats = array();
 
       if (mysqli_num_rows($chat_db_results) > 0) {
-        while ($row = mysqli_fetch_assoc($chat_db_results)) {
-          array_push($chats, $row);
+        while ($chat_row = mysqli_fetch_assoc($chat_db_results)) {
+          array_push($chats, $chat_row);
         }
       }
 

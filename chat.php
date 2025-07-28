@@ -14,15 +14,6 @@ if ($method === 'POST') {
     return;
   }
 
-  if (!array_key_exists('type', $data)) {
-    send_response(array(
-      'code' => 422,
-      'data' => 'Type is missing'
-    ), 422);
-
-    return;
-  }
-
   if (!array_key_exists('post_id', $data)) {
     send_response(array(
       'code' => 422,
@@ -33,14 +24,21 @@ if ($method === 'POST') {
   }
 
   $message = $data["message"];
-  $type = $data["type"];
   $post_id = $data["post_id"];
 
-  $new_id = query_database("INSERT INTO Chats (message, type, post_id) VALUES (\"$message\", \"$type\", \"$post_id\")", true);
-  $data["id"] = strval($new_id);
+  $new_id = query_database("INSERT INTO Chat (message, post_id) VALUES (\"$message\", $post_id)", true);
+
+  $db_results = query_database("SELECT * FROM Chat WHERE ID = $new_id");
+  $final_results = array();
+
+    if (mysqli_num_rows($db_results) > 0) {
+    while ($row = mysqli_fetch_assoc($db_results)) {
+      array_push($final_results, $row);
+    }
+  }
 
   send_response([
     'status' => 'success',
-    'data' => $data
+    'data' => $final_results[0]
   ]);
 }
