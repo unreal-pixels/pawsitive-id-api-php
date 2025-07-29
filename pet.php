@@ -24,6 +24,7 @@ function get_single_item($id)
       $row["reunited"] = $row["reunited"] === "1" ? true : false;
       $row["chats"] = $chats;
       $row["images"] = empty($row["image_data"]) ? array() : explode("~", $row["image_data"]);
+      $row["reunited_images"] = empty($row["reunited_image_data"]) ? array() : explode("~", $row["reunited_image_data"]);
       unset($row["image_data"]);
 
       array_push($final_results, $row);
@@ -73,6 +74,7 @@ if ($method === 'GET') {
       $row["reunited"] = $row["reunited"] === "1" ? true : false;
       $row["chats"] = $chats;
       $row["images"] = empty($row["image_data"]) ? array() : explode("~", $row["image_data"]);
+      $row["reunited_images"] = empty($row["reunited_image_data"]) ? array() : explode("~", $row["reunited_image_data"]);
       unset($row["image_data"]);
 
       array_push($final_results, $row);
@@ -128,22 +130,21 @@ if ($method === 'PUT') {
     return;
   }
 
-  if (array_key_exists('reunited', $data)) {
-    $reunited_value = $data["reunited"] ? "true" : "false";
+  $reunited_images = "";
 
-    query_database("UPDATE Pet SET reunited = $reunited_value WHERE id = $id;");
+  if (is_array($data["reunited_images"])) {
+    $reunited_images = implode("~", $final_value);
+  }
 
-    send_response([
+  $reunited_value = $data["reunited"] ? "true" : "false";
+  $reunited_date = $data["reunited_date"];
+  $reunited_descriptiion = $data["reunited_descriptiion"];
+
+  query_database("UPDATE Pet SET reunited = $reunited_value, reunited_image_data = \"$reunited_images\", reunited_date = \"$reunited_date\", reunited_descriptiion = \"$reunited_descriptiion\" WHERE id = $id;");
+
+  send_response([
     'status' => 'success',
   ]);
-  } else {
-    send_response(array(
-      'code' => 422,
-      'data' => 'No valid update call'
-    ), 422);
-
-    return;
-  }
 }
 
 if ($method === 'DELETE') {

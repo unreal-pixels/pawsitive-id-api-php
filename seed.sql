@@ -16,7 +16,10 @@ CREATE TABLE Pet (
     post_by_email VARCHAR(255),
     created_at TIMESTAMP DEFAULT now(),
     reunited BOOLEAN DEFAULT false,
-    image_data LONGBLOB NOT NULL
+    image_data LONGBLOB NOT NULL,
+    reunited_descriptiion VARCHAR(6500),
+    reunited_date DATE,
+    reunited_image_data LONGBLOB
 );
 
 CREATE TABLE Chat (
