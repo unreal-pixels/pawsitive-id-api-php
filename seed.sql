@@ -17,7 +17,7 @@ CREATE TABLE Pet (
     created_at TIMESTAMP DEFAULT now(),
     reunited BOOLEAN DEFAULT false,
     image_data LONGBLOB NOT NULL,
-    reunited_descriptiion VARCHAR(6500),
+    reunited_description VARCHAR(6500),
     reunited_date DATE,
     reunited_image_data LONGBLOB
 );

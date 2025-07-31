@@ -133,14 +133,15 @@ if ($method === 'PUT') {
   $reunited_images = "";
 
   if (is_array($data["reunited_images"])) {
-    $reunited_images = implode("~", $final_value);
+    $reunited_images = implode("~", $data["reunited_images"]);
   }
 
   $reunited_value = $data["reunited"] ? "true" : "false";
   $reunited_date = $data["reunited_date"];
-  $reunited_descriptiion = $data["reunited_descriptiion"];
+  $reunited_description = $data["reunited_description"];
+  $name = $data["name"];
 
-  query_database("UPDATE Pet SET reunited = $reunited_value, reunited_image_data = \"$reunited_images\", reunited_date = \"$reunited_date\", reunited_descriptiion = \"$reunited_descriptiion\" WHERE id = $id;");
+  query_database("UPDATE Pet SET reunited = $reunited_value, reunited_image_data = \"$reunited_images\", reunited_date = \"$reunited_date\", reunited_description = \"$reunited_description\", name = \"$name\" WHERE id = $id;");
 
   send_response([
     'status' => 'success',
