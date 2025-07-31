@@ -48,12 +48,10 @@ if ($method === 'GET') {
   $query_string = "SELECT * FROM Pet";
 
   if (!$show_reunited) {
-    $query_string = $query_string . " WHERE reunited = false";
+    $query_string = $query_string . " WHERE reunited = false ORDER BY created_at DESC";
   } else {
-    $query_string = $query_string . " WHERE reunited = true";
+    $query_string = $query_string . " WHERE reunited = true ORDER BY reunited_date DESC";
   }
-
-  $query_string = $query_string . " ORDER BY created_at DESC";
 
   $db_results = query_database($query_string);
 
